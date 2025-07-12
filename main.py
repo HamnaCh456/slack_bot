@@ -81,7 +81,8 @@ def driver_func():
     bounties_data=json.dumps(result,indent=1)
     print(bounties_data)
     message=writing_email(bounties_data)
-    return message
+    final_output=send_slack_message(message)
+    return final_output
 
 if __name__=='__main__':
     app.run(debug=True)
