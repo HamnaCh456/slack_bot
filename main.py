@@ -8,7 +8,10 @@ from typing import Dict
 from crawl4ai import AsyncWebCrawler, BrowserConfig,CacheMode
 import requests 
 from flask import Flask
+from dotenv import load_dotenv
+load_dotenv()
 
+webhook_url = os.getenv("WEBHOOK_URL")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 class BountyItem(BaseModel):
     url: str = Field(..., description="url of the bounty")
@@ -66,7 +69,7 @@ def writing_email(bounties_data):
 
 def send_slack_message(message):
     payload='{"text":"%s"}'%message
-    final_output=requests.post("https://hooks.slack.com/services/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",data=payload)#https://hooks.slack.com/services/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
+    final_output=requests.post(webhook_url,data=payload)
     print(final_output.text)
     return final_output.text
 
