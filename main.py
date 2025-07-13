@@ -74,7 +74,7 @@ def send_slack_message(message):
     return final_output.text
 
 app=Flask(__name__)
-@app.route('/',methods=['GET'])
+@app.route('/slack',methods=['GET'])
 def driver_func():
     result=asyncio.run(
     extract_structured_data_using_llm(
